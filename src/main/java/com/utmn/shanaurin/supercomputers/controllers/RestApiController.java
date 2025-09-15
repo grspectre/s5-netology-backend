@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 public class RestApiController {
-    private List<Supercomputer> supercomputers = new ArrayList<>();
+    private final List<Supercomputer> supercomputers = new ArrayList<>();
 
     public RestApiController() {
         supercomputers.addAll(

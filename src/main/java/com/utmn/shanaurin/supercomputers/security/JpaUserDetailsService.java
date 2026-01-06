@@ -16,14 +16,14 @@ public class JpaUserDetailsService implements UserDetailsService {
         this.encoder = encoder;
     }
 
+    // src/main/java/.../security/JpaUserDetailsService.java
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Person person = personRepository.findByEmailIgnoreCase(username);
         if (person != null) {
-            String encodedPassword = encoder.encode(person.getPassword());
             return User.withUsername(person.getEmail())
                     .accountLocked(!person.isEnabled())
-                    .password(encodedPassword)
+                    .password(person.getPassword()) // <-- НЕ encode здесь
                     .roles(person.getRole())
                     .build();
         }

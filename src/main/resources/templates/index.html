@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supercomputers API</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,11 +14,7 @@
             color: #fff;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
         header {
             text-align: center;
@@ -39,10 +31,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .subtitle {
-            color: #888;
-            font-size: 1.1em;
-        }
+        .subtitle { color: #888; font-size: 1.1em; }
 
         .section {
             background: rgba(255,255,255,0.05);
@@ -52,11 +41,7 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .section h2 {
-            color: #00d9ff;
-            margin-bottom: 20px;
-            font-size: 1.4em;
-        }
+        .section h2 { color: #00d9ff; margin-bottom: 20px; font-size: 1.4em; }
 
         .endpoint {
             display: flex;
@@ -66,6 +51,7 @@
             border-radius: 10px;
             margin-bottom: 10px;
             transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
         }
 
         .endpoint:hover {
@@ -88,9 +74,7 @@
         .method.put { background: #F59E0B; }
         .method.delete { background: #EF4444; }
 
-        .endpoint-info {
-            flex: 1;
-        }
+        .endpoint-info { flex: 1; }
 
         .endpoint-path {
             font-family: 'Courier New', monospace;
@@ -98,10 +82,7 @@
             margin-bottom: 5px;
         }
 
-        .endpoint-desc {
-            color: #888;
-            font-size: 0.9em;
-        }
+        .endpoint-desc { color: #888; font-size: 0.9em; }
 
         .try-btn {
             padding: 8px 16px;
@@ -114,9 +95,7 @@
             transition: opacity 0.2s;
         }
 
-        .try-btn:hover {
-            opacity: 0.8;
-        }
+        .try-btn:hover { opacity: 0.8; }
 
         .stats-grid {
             display: grid;
@@ -133,16 +112,8 @@
             border: 1px solid rgba(0,217,255,0.3);
         }
 
-        .stat-value {
-            font-size: 2em;
-            font-weight: bold;
-            color: #00ff88;
-        }
-
-        .stat-label {
-            color: #888;
-            margin-top: 5px;
-        }
+        .stat-value { font-size: 2em; font-weight: bold; color: #00ff88; }
+        .stat-label { color: #888; margin-top: 5px; }
 
         .response-area {
             background: #0d0d0d;
@@ -154,16 +125,14 @@
             overflow-y: auto;
         }
 
-        .response-area.active {
-            display: block;
-        }
+        .response-area.active { display: block; }
 
         .response-area pre {
             color: #00ff88;
             font-family: 'Courier New', monospace;
             font-size: 0.85em;
             white-space: pre-wrap;
-            word-break: break-all;
+            word-break: break-word;
         }
 
         .quick-links {
@@ -171,6 +140,7 @@
             gap: 15px;
             justify-content: center;
             margin-top: 30px;
+            flex-wrap: wrap;
         }
 
         .quick-link {
@@ -196,25 +166,96 @@
             margin-bottom: 25px;
         }
 
-        .auth-info h3 {
-            color: #FFC107;
-            margin-bottom: 10px;
+        .auth-info h3 { color: #FFC107; margin-bottom: 10px; }
+
+        .auth-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            align-items: end;
         }
 
-        .credentials {
+        @media (max-width: 800px) {
+            .auth-grid { grid-template-columns: 1fr; }
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.85em;
+            color: #bbb;
+            margin-bottom: 6px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.25);
+            color: #fff;
+            outline: none;
+        }
+
+        .field input::placeholder { color: #777; }
+
+        .auth-actions {
             display: flex;
-            gap: 30px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .credential {
-            font-family: 'Courier New', monospace;
+        .btn {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
         }
 
-        .credential-role {
-            color: #888;
-            font-size: 0.85em;
+        .btn-primary {
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            color: #1a1a2e;
         }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        .token-box {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+        }
+
+        .token-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .token-label { color: #bbb; font-size: 0.9em; }
+
+        .token-value {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #00ff88;
+            word-break: break-all;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #bbb;
+        }
+
+        .status.ok { color: #00ff88; }
+        .status.err { color: #EF4444; }
 
         .loading {
             display: inline-block;
@@ -226,9 +267,7 @@
             animation: spin 1s ease-in-out infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -244,19 +283,43 @@
     </header>
 
     <div class="auth-info">
-        <h3>🔐 Аутентификация (Basic Auth)</h3>
-        <div class="credentials">
-            <div class="credential">
-                <span class="credential-role">USER:</span> user / userPass
+        <h3>🔐 Аутентификация (JWT)</h3>
+
+        <div class="auth-grid">
+            <div class="field">
+                <label for="username">Email / Username</label>
+                <input id="username" type="text" placeholder="user@example.com" autocomplete="username">
             </div>
-            <div class="credential">
-                <span class="credential-role">ADMIN:</span> admin / adminPass
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="userPass" autocomplete="current-password">
+            </div>
+
+            <div class="auth-actions">
+                <button class="btn btn-primary" onclick="handleLogin()">Получить токен</button>
+                <button class="btn btn-secondary" onclick="handleLogout()">Выйти</button>
+                <button class="btn btn-secondary" onclick="copyToken()">Скопировать токен</button>
+            </div>
+
+            <div>
+                <div class="token-box">
+                    <div class="token-row">
+                        <div class="token-label">Текущее состояние токена:</div>
+                        <div id="tokenState" class="token-label">—</div>
+                    </div>
+                    <div style="margin-top:8px;">
+                        <div class="token-label">Bearer token:</div>
+                        <div id="tokenValue" class="token-value">—</div>
+                    </div>
+                </div>
+                <div id="authStatus" class="status">Введите логин/пароль и нажмите “Получить токен”.</div>
             </div>
         </div>
     </div>
 
     <div class="section">
-        <h2>📊 Статистика (загрузится автоматически)</h2>
+        <h2>📊 Статистика</h2>
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-value" id="stat-count">-</div>
@@ -271,6 +334,10 @@
                 <div class="stat-label">Ср. мощность (кВт)</div>
             </div>
         </div>
+
+        <div style="margin-top: 15px;">
+            <button class="btn btn-secondary" onclick="loadStats()">Обновить статистику</button>
+        </div>
     </div>
 
     <div class="section">
@@ -282,40 +349,16 @@
                 <div class="endpoint-path">/api/supercomputers</div>
                 <div class="endpoint-desc">Получить список всех суперкомпьютеров</div>
             </div>
-            <button class="try-btn">Попробовать</button>
+            <button class="try-btn" type="button">Попробовать</button>
         </div>
 
-        <div class="endpoint" onclick="tryEndpoint('GET', '/api/supercomputers/{id}')">
+        <div class="endpoint" onclick="promptAndCallId()">
             <span class="method get">GET</span>
             <div class="endpoint-info">
                 <div class="endpoint-path">/api/supercomputers/{id}</div>
-                <div class="endpoint-desc">Получить суперкомпьютер по ID</div>
+                <div class="endpoint-desc">Получить суперкомпьютер по ID (спросит id)</div>
             </div>
-            <button class="try-btn">Попробовать</button>
-        </div>
-
-        <div class="endpoint">
-            <span class="method post">POST</span>
-            <div class="endpoint-info">
-                <div class="endpoint-path">/api/supercomputers</div>
-                <div class="endpoint-desc">Добавить новый суперкомпьютер</div>
-            </div>
-        </div>
-
-        <div class="endpoint">
-            <span class="method put">PUT</span>
-            <div class="endpoint-info">
-                <div class="endpoint-path">/api/supercomputers</div>
-                <div class="endpoint-desc">Обновить суперкомпьютер</div>
-            </div>
-        </div>
-
-        <div class="endpoint">
-            <span class="method delete">DELETE</span>
-            <div class="endpoint-info">
-                <div class="endpoint-path">/api/supercomputers/{id}</div>
-                <div class="endpoint-desc">Удалить суперкомпьютер</div>
-            </div>
+            <button class="try-btn" type="button">Попробовать</button>
         </div>
     </div>
 
@@ -328,7 +371,7 @@
                 <div class="endpoint-path">/api/supercomputers/stats/avg-performance</div>
                 <div class="endpoint-desc">Средняя производительность (Rmax TFlop/s)</div>
             </div>
-            <button class="try-btn">Попробовать</button>
+            <button class="try-btn" type="button">Попробовать</button>
         </div>
 
         <div class="endpoint" onclick="tryEndpoint('GET', '/api/supercomputers/stats/avg-power')">
@@ -337,7 +380,7 @@
                 <div class="endpoint-path">/api/supercomputers/stats/avg-power</div>
                 <div class="endpoint-desc">Средняя потребляемая мощность</div>
             </div>
-            <button class="try-btn">Попробовать</button>
+            <button class="try-btn" type="button">Попробовать</button>
         </div>
 
         <div class="endpoint" onclick="tryEndpoint('GET', '/api/supercomputers/stats/by-continent')">
@@ -346,88 +389,246 @@
                 <div class="endpoint-path">/api/supercomputers/stats/by-continent</div>
                 <div class="endpoint-desc">Количество по континентам</div>
             </div>
-            <button class="try-btn">Попробовать</button>
+            <button class="try-btn" type="button">Попробовать</button>
         </div>
 
-        <div class="endpoint" onclick="tryEndpoint('GET', '/api/supercomputers/country/Japan')">
+        <div class="endpoint" onclick="promptAndCall('country')">
             <span class="method get">GET</span>
             <div class="endpoint-info">
                 <div class="endpoint-path">/api/supercomputers/country/{country}</div>
-                <div class="endpoint-desc">Получить по стране (пример: Japan)</div>
+                <div class="endpoint-desc">Получить по стране (спросит country)</div>
             </div>
-            <button class="try-btn">Попробовать</button>
+            <button class="try-btn" type="button">Попробовать</button>
         </div>
 
-        <div class="endpoint" onclick="tryEndpoint('GET', '/api/supercomputers/continent/Asia')">
+        <div class="endpoint" onclick="promptAndCall('continent')">
             <span class="method get">GET</span>
             <div class="endpoint-info">
                 <div class="endpoint-path">/api/supercomputers/continent/{continent}</div>
-                <div class="endpoint-desc">Получить по континенту (пример: Asia)</div>
+                <div class="endpoint-desc">Получить по континенту (спросит continent)</div>
             </div>
-            <button class="try-btn">Попробовать</button>
+            <button class="try-btn" type="button">Попробовать</button>
         </div>
     </div>
 
     <div class="section">
         <h2>📥 Ответ сервера</h2>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+            <button class="btn btn-secondary" onclick="clearResponse()">Очистить</button>
+        </div>
         <div class="response-area active" id="response">
-            <pre>Нажмите на эндпоинт, чтобы увидеть ответ...</pre>
+            <pre>Сначала получите токен, затем нажимайте на эндпоинты.</pre>
         </div>
     </div>
 </div>
 
 <script>
-    const credentials = btoa('user:userPass');
+    const LS_TOKEN_KEY = 'sc_jwt_token';
 
-    async function tryEndpoint(method, path) {
+    function setStatus(message, type) {
+        const el = document.getElementById('authStatus');
+        el.classList.remove('ok', 'err');
+        if (type) el.classList.add(type);
+        el.textContent = message;
+    }
+
+    function setToken(token) {
+        const tokenState = document.getElementById('tokenState');
+        const tokenValue = document.getElementById('tokenValue');
+
+        if (token) {
+            localStorage.setItem(LS_TOKEN_KEY, token);
+            tokenState.textContent = 'есть';
+            tokenValue.textContent = token;
+        } else {
+            localStorage.removeItem(LS_TOKEN_KEY);
+            tokenState.textContent = 'нет';
+            tokenValue.textContent = '—';
+        }
+    }
+
+    function getToken() {
+        return localStorage.getItem(LS_TOKEN_KEY);
+    }
+
+    async function handleLogin() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+
+        if (!username || !password) {
+            setStatus('Введите username/email и password.', 'err');
+            return;
+        }
+
+        setStatus('Логин...', null);
+
+        try {
+            const resp = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username, password})
+            });
+
+            if (!resp.ok) {
+                const text = await resp.text();
+                throw new Error('Login failed: ' + resp.status + ' ' + text);
+            }
+
+            const data = await resp.json();
+            if (!data.token) throw new Error('Нет поля token в ответе');
+
+            setToken(data.token);
+            setStatus('Токен получен. Теперь можно делать запросы.', 'ok');
+
+            await loadStats();
+        } catch (e) {
+            setToken(null);
+            setStatus('Ошибка логина: ' + e.message, 'err');
+        }
+    }
+
+    function handleLogout() {
+        setToken(null);
+        setStatus('Токен очищен.', null);
+    }
+
+    async function copyToken() {
+        const token = getToken();
+        if (!token) {
+            setStatus('Нет токена для копирования.', 'err');
+            return;
+        }
+        try {
+            await navigator.clipboard.writeText(token);
+            setStatus('Токен скопирован в буфер обмена.', 'ok');
+        } catch (e) {
+            setStatus('Не удалось скопировать токен: ' + e.message, 'err');
+        }
+    }
+
+    function setResponse(content, isError) {
         const responseArea = document.getElementById('response');
+        responseArea.classList.add('active');
+        responseArea.innerHTML = '<pre style="color: ' + (isError ? '#EF4444' : '#00ff88') + ';">' +
+            content + '</pre>';
+    }
+
+    function clearResponse() {
+        setResponse('—', false);
+    }
+
+    function authHeaders() {
+        const token = getToken();
+        if (!token) return null;
+        return { 'Authorization': 'Bearer ' + token };
+    }
+
+    async function tryEndpoint(method, path, body) {
+        const hdrs = authHeaders();
+        if (!hdrs) {
+            setResponse('Нет JWT токена. Сначала нажмите "Получить токен".', true);
+            return;
+        }
+
+        const responseArea = document.getElementById('response');
+        responseArea.classList.add('active');
         responseArea.innerHTML = '<div class="loading"></div> Загрузка...';
 
         try {
-            const response = await fetch(path, {
-                method: method,
-                headers: {
-                    'Authorization': 'Basic ' + credentials,
-                    'Content-Type': 'application/json'
-                }
+            const headers = {
+                ...hdrs,
+                'Content-Type': 'application/json'
+            };
+
+            const resp = await fetch(path, {
+                method,
+                headers,
+                body: body ? JSON.stringify(body) : undefined
             });
 
-            const data = await response.json();
-            responseArea.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
-        } catch (error) {
-            responseArea.innerHTML = '<pre style="color: #EF4444;">Ошибка: ' + error.message + '</pre>';
+            const contentType = resp.headers.get('content-type') || '';
+            const isJson = contentType.includes('application/json');
+
+            const payload = isJson ? await resp.json() : await resp.text();
+
+            // Если 204 No Content — покажем статус
+            if (resp.status === 204) {
+                setResponse('HTTP 204 No Content', false);
+                return;
+            }
+
+            const pretty = isJson ? JSON.stringify(payload, null, 2) : String(payload);
+
+            if (!resp.ok) {
+                setResponse('HTTP ' + resp.status + '\n' + pretty, true);
+                return;
+            }
+
+            setResponse(pretty, false);
+        } catch (e) {
+            setResponse('Ошибка запроса: ' + e.message, true);
         }
     }
 
     async function loadStats() {
+        const hdrs = authHeaders();
+        if (!hdrs) {
+            // Без токена статистику не грузим
+            document.getElementById('stat-count').textContent = '-';
+            document.getElementById('stat-avg-perf').textContent = '-';
+            document.getElementById('stat-avg-power').textContent = '-';
+            return;
+        }
+
         try {
-            const allResponse = await fetch('/api/supercomputers', {
-                headers: { 'Authorization': 'Basic ' + credentials }
-            });
+            const allResponse = await fetch('/api/supercomputers', { headers: hdrs });
+            if (!allResponse.ok) throw new Error('Не удалось загрузить список: ' + allResponse.status);
             const all = await allResponse.json();
             document.getElementById('stat-count').textContent = Array.isArray(all) ? all.length : '-';
 
-            const avgPerfResponse = await fetch('/api/supercomputers/stats/avg-performance', {
-                headers: { 'Authorization': 'Basic ' + credentials }
-            });
+            const avgPerfResponse = await fetch('/api/supercomputers/stats/avg-performance', { headers: hdrs });
+            if (!avgPerfResponse.ok) throw new Error('avg-performance: ' + avgPerfResponse.status);
             const avgPerf = await avgPerfResponse.json();
-            document.getElementById('stat-avg-perf').textContent =
-                avgPerf ? avgPerf.toFixed(2) : '-';
+            document.getElementById('stat-avg-perf').textContent = avgPerf ? Number(avgPerf).toFixed(2) : '-';
 
-            const avgPowerResponse = await fetch('/api/supercomputers/stats/avg-power', {
-                headers: { 'Authorization': 'Basic ' + credentials }
-            });
+            const avgPowerResponse = await fetch('/api/supercomputers/stats/avg-power', { headers: hdrs });
+            if (!avgPowerResponse.ok) throw new Error('avg-power: ' + avgPowerResponse.status);
             const avgPower = await avgPowerResponse.json();
-            document.getElementById('stat-avg-power').textContent =
-                avgPower ? avgPower.toFixed(2) : '-';
+            document.getElementById('stat-avg-power').textContent = avgPower ? Number(avgPower).toFixed(2) : '-';
 
-        } catch (error) {
-            console.error('Ошибка загрузки статистики:', error);
+        } catch (e) {
+            console.error('Ошибка загрузки статистики:', e);
         }
     }
 
-    // Загружаем статистику при загрузке страницы
-    document.addEventListener('DOMContentLoaded', loadStats);
+    function promptAndCall(kind) {
+        const v = prompt('Введите значение (' + kind + '):');
+        if (!v) return;
+        tryEndpoint('GET', '/api/supercomputers/' + kind + '/' + encodeURIComponent(v));
+    }
+
+    function promptAndCallId() {
+        const id = prompt('Введите ID суперкомпьютера:');
+        if (!id) return;
+        tryEndpoint('GET', '/api/supercomputers/' + encodeURIComponent(id));
+    }
+
+    // init UI
+    document.addEventListener('DOMContentLoaded', () => {
+        const saved = getToken();
+        setToken(saved);
+
+        // Можно проставить удобные дефолты (поменяйте под свои сид-данные)
+        document.getElementById('username').value = 'user@example.com';
+        document.getElementById('password').value = 'userPass';
+
+        if (saved) {
+            setStatus('Токен найден в localStorage. Можно делать запросы.', 'ok');
+            loadStats();
+        } else {
+            setStatus('Введите логин/пароль и нажмите “Получить токен”.', null);
+        }
+    });
 </script>
 </body>
 </html>
